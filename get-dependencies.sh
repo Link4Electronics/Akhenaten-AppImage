@@ -6,7 +6,12 @@ ARCH=$(uname -m)
 
 echo "Installing package dependencies..."
 echo "---------------------------------------------------------------"
-pacman -Syu --noconfirm libdecor
+pacman -Syu --noconfirm \
+    cmake      \
+    libdecor   \
+    sdl2       \
+    sdl2_image \
+    sdl2_mixer
 
 echo "Installing debloated packages..."
 echo "---------------------------------------------------------------"
@@ -14,7 +19,7 @@ get-debloated-pkgs --add-common --prefer-nano
 
 # Comment this out if you need an AUR package
 #export CXXFLAGS="${CXXFLAGS:-} -Wno-error=format-security"
-make-aur-package akhenaten-git
+#make-aur-package akhenaten-git
 
 # If the application needs to be manually built that has to be done down here
 
