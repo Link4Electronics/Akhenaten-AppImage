@@ -39,4 +39,4 @@ cp -r mods ./AppDir/bin
 mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
-mv -v Akhenaten ../AppDir/bin
+mv -v akhenaten ../AppDir/bin
