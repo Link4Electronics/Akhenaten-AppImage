@@ -14,7 +14,8 @@ export STARTUPWMCLASS=
 export DEPLOY_OPENGL=1
 
 # Deploy dependencies
-quick-sharun /usr/bin/akhenaten
+quick-sharun .AppDir/bin/akhenaten
+
 # Additional changes can be done in between here
 
 # Turn AppDir into AppImage
