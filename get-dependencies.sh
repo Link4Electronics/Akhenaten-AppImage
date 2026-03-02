@@ -9,6 +9,7 @@ echo "---------------------------------------------------------------"
 pacman -Syu --noconfirm \
     cmake      \
     libdecor   \
+    libvpx     \
     sdl2       \
     sdl2_image \
     sdl2_mixer
@@ -24,9 +25,18 @@ get-debloated-pkgs --add-common --prefer-nano
 # If the application needs to be manually built that has to be done down here
 
 # if you also have to make nightly releases check for DEVEL_RELEASE = 1
-#
-# if [ "${DEVEL_RELEASE-}" = 1 ]; then
-# 	nightly build steps
-# else
-# 	regular build steps
-# fi
+echo "Making nightly build of Akhenaten..."
+echo "---------------------------------------------------------------"
+REPO="https://github.com/dalerank/Akhenaten"
+VERSION="$(git ls-remote "$REPO" HEAD | cut -c 1-9 | head -1)"
+git clone "$REPO" ./Akhenaten
+echo "$VERSION" > ~/version
+
+mkdir -p ./AppDir/bin
+cd ./Akhenaten
+cp -r data ./AppDir/bin
+cp -r mods ./AppDir/bin
+mkdir -p build && cd build
+cmake .. -DCMAKE_BUILD_TYPE=Release
+make -j$(nproc)
+mv -v Akhenaten ../AppDir/bin
