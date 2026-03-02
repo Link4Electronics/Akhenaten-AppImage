@@ -34,8 +34,8 @@ echo "$VERSION" > ~/version
 
 mkdir -p ./AppDir/bin
 cd ./Akhenaten
-cp -r data ./AppDir/bin
-cp -r mods ./AppDir/bin
+cp -r data ../AppDir/bin
+cp -r mods ../AppDir/bin
 mkdir -p build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=Release
 make -j$(nproc)
