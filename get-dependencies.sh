@@ -22,13 +22,20 @@ get-debloated-pkgs --add-common --prefer-nano
 #make-aur-package
 
 # If the application needs to be manually built that has to be done down here
-
-# if you also have to make nightly releases check for DEVEL_RELEASE = 1
-echo "Making nightly build of Akhenaten..."
+echo "Building Akhenaten..."
 echo "---------------------------------------------------------------"
 REPO="https://github.com/dalerank/Akhenaten"
-VERSION="$(git ls-remote "$REPO" HEAD | cut -c 1-9 | head -1)"
-git clone "$REPO" ./Akhenaten
+if [ "${DEVEL_RELEASE-}" = 1 ]; then
+    echo "Making nightly build of Akhenaten..."
+    echo "---------------------------------------------------------------"
+    VERSION="$(git ls-remote "$REPO" HEAD | cut -c 1-9 | head -1)"
+    git clone "$REPO" ./Akhenaten
+else
+    echo "Making stable build of Akhenaten..."
+    echo "---------------------------------------------------------------"
+    VERSION=$(git ls-remote --tags --refs --sort='v:refname' "$REPO" "refs/tags/ra*" | tail -n1 | cut -d/ -f3)
+    git clone --branch "$VERSION" --single-branch "$REPO" ./Akhenaten
+fi
 echo "$VERSION" > ~/version
 
 mkdir -p ./AppDir/bin
