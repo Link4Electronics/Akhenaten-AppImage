@@ -10,7 +10,6 @@ pacman -Syu --noconfirm \
     cmake      \
     libdecor   \
     libvpx     \
-    sdl2       \
     sdl2_image \
     sdl2_mixer
 
